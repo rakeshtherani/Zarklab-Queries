@@ -1,4 +1,4 @@
-# Cryptocurrency Investment Analysis: Detailed Queries and Explanations
+# 1. Cryptocurrency Investment Analysis: Detailed Queries and Explanations
 
 ## Table of Contents
 1. [Introduction](#introduction)
