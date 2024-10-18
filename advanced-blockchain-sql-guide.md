@@ -4,21 +4,37 @@
 1. [Introduction](#introduction)
 2. [Dataset Overview](#dataset-overview)
 3. [Advanced Analytical Queries](#advanced-analytical-queries)
+
    3.1 [Time-Series Analysis of Transaction Volumes](#31-time-series-analysis-of-transaction-volumes)
+
    3.2 [Identifying Top Influential Wallets Using PageRank Algorithm](#32-identifying-top-influential-wallets-using-pagerank-algorithm)
+
    3.3 [Advanced Correlation Analysis Between Tokens](#33-advanced-correlation-analysis-between-tokens)
+
    3.4 [Utilizing Hierarchical Queries for Wallet Clustering](#34-utilizing-hierarchical-queries-for-wallet-clustering)
+
    3.5 [Anomaly Detection Using Machine Learning Functions](#35-anomaly-detection-using-machine-learning-functions)
+
    3.6 [Calculating Token Turnover Ratios](#36-calculating-token-turnover-ratios)
+
    3.7 [Time to Live (TTL) Analysis of Tokens in Wallets](#37-time-to-live-ttl-analysis-of-tokens-in-wallets)
+
    3.8 [Performing Cohort Analysis of New Wallets](#38-performing-cohort-analysis-of-new-wallets)
+
    3.9 [Analyzing Gas Price Optimization Strategies](#39-analyzing-gas-price-optimization-strategies)
+
    3.10 [Predictive Analytics for Transaction Fees](#310-predictive-analytics-for-transaction-fees)
+
    3.11 [Detection of Transaction Patterns Using Regular Expressions](#311-detection-of-transaction-patterns-using-regular-expressions)
+
    3.12 [Geo-Temporal Analysis of Transactions](#312-geo-temporal-analysis-of-transactions)
+
    3.13 [Sentiment Analysis Based on Transaction Notes](#313-sentiment-analysis-based-on-transaction-notes)
+
    3.14 [Leveraging Materialized Views for Performance Optimization](#314-leveraging-materialized-views-for-performance-optimization)
+
    3.15 [Utilizing ClickHouse's Array and Map Functions for Complex Data Structures](#315-utilizing-clickhouses-array-and-map-functions-for-complex-data-structures)
+
 4. [Implementing These Queries](#implementing-these-queries)
 5. [Potential Applications](#potential-applications)
 
