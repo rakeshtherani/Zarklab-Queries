@@ -3,21 +3,37 @@
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Advanced Analytical Queries and Use Cases](#advanced-analytical-queries-and-use-cases)
+
    2.1 [Identifying Potential Mixer Services Usage](#21-identifying-potential-mixer-services-usage)
+
    2.2 [Clustering Wallets Based on Transaction Behavior](#22-clustering-wallets-based-on-transaction-behavior)
+
    2.3 [Analyzing Transaction Fee Optimization](#23-analyzing-transaction-fee-optimization)
+
    2.4 [Sentiment Analysis Based on Token Transaction Trends](#24-sentiment-analysis-based-on-token-transaction-trends)
+
    2.5 [Detection of Sybil Attacks in Token Voting Systems](#25-detection-of-sybil-attacks-in-token-voting-systems)
+
    2.6 [Analyzing Token Velocity](#26-analyzing-token-velocity)
+
    2.7 [Identifying Potential Insider Trading](#27-identifying-potential-insider-trading)
+
    2.8 [Network Graph Analysis of Wallet Interactions](#28-network-graph-analysis-of-wallet-interactions)
+
    2.9 [Detecting Front-Running in Decentralized Exchanges](#29-detecting-front-running-in-decentralized-exchanges)
+
    2.10 [Analyzing Stale Address Reuse](#210-analyzing-stale-address-reuse)
+
    2.11 [Estimating the Impact of Network Congestion on Transaction Fees](#211-estimating-the-impact-of-network-congestion-on-transaction-fees)
+
    2.12 [Identifying Wash Trading on Exchanges](#212-identifying-wash-trading-on-exchanges)
+
    2.13 [Analysis of Token Burn Events](#213-analysis-of-token-burn-events)
+
    2.14 [Cross-Exchange Arbitrage Detection](#214-cross-exchange-arbitrage-detection)
+
    2.15 [Machine Learning-Based Fraud Detection](#215-machine-learning-based-fraud-detection)
+
 3. [Implementing These Analyses](#implementing-these-analyses)
 4. [Potential Applications](#potential-applications)
 
