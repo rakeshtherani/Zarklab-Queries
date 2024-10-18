@@ -1,29 +1,40 @@
-# Advanced SQL Queries for Blockchain Data Analysis
+# Advanced SQL Queries and Analyses for Blockchain Data
 
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Dataset Overview](#dataset-overview)
 3. [Advanced SQL Queries and Analyses](#advanced-sql-queries-and-analyses)
+
    3.1 [Detecting Circular Trading Patterns](#31-detecting-circular-trading-patterns)
+
    3.2 [Identifying Dormant Wallets Suddenly Receiving Large Funds](#32-identifying-dormant-wallets-suddenly-receiving-large-funds)
+
    3.3 [Cross-Chain Arbitrage Opportunities Detection](#33-cross-chain-arbitrage-opportunities-detection)
+
    3.4 [High-Frequency Trading Wallets Detection](#34-high-frequency-trading-wallets-detection)
+
    3.5 [Analyzing Fee Consumption Patterns](#35-analyzing-fee-consumption-patterns)
+
    3.6 [Token Holding Period Analysis](#36-token-holding-period-analysis)
+
    3.7 [Correlation Between Token Prices and Transaction Volumes](#37-correlation-between-token-prices-and-transaction-volumes)
+
    3.8 [Detection of Potential Pump and Dump Schemes](#38-detection-of-potential-pump-and-dump-schemes)
+
    3.9 [Analysis of Counterparty Risk Exposure](#39-analysis-of-counterparty-risk-exposure)
+
    3.10 [Predictive Modeling for Transaction Amounts](#310-predictive-modeling-for-transaction-amounts)
+
 4. [Implementing and Extending the Queries](#implementing-and-extending-the-queries)
 5. [Potential Applications](#potential-applications)
 
 ## 1. Introduction
 
-This document provides a set of advanced SQL queries designed to perform in-depth analyses on blockchain transaction data. These queries aim to uncover unique insights that are not commonly explored by other companies. Each query includes an explanation of its purpose and the valuable information it can reveal.
+This guide provides advanced SQL queries designed to perform in-depth analyses on blockchain transaction data. These queries aim to uncover unique insights that are not commonly explored by other companies. Each query includes an explanation of its purpose and the valuable information it can reveal.
 
 ## 2. Dataset Overview
 
-The analyses are based on two main datasets:
+Before diving into the queries, let's briefly understand the datasets:
 
 ### 2.1 WALLET_COUNTERPARTY_SUMMARY
 
@@ -76,9 +87,10 @@ Columns:
 
 ### 3.1 Detecting Circular Trading Patterns
 
-**Objective**: Identify wallets engaged in circular trading, where funds move through a series of wallets and return to the original wallet, potentially indicating wash trading or money laundering.
+**Objective:** Identify wallets engaged in circular trading, where funds move through a series of wallets and return to the original wallet, potentially indicating wash trading or money laundering.
 
-**SQL Query**:
+**SQL Query:**
+
 ```sql
 WITH first_transfers AS (
     SELECT
@@ -123,15 +135,16 @@ FROM circular_trades
 ORDER BY time_c_to_a DESC;
 ```
 
-**Explanation**:
+**Explanation:**
 - Purpose: Identifies sequences where funds move from wallet_a to wallet_b, then to wallet_c, and back to wallet_a.
 - Unique Insight: Circular trading can be indicative of attempts to manipulate market volumes or obscure the origin of funds.
 
 ### 3.2 Identifying Dormant Wallets Suddenly Receiving Large Funds
 
-**Objective**: Find wallets that were inactive for an extended period and then received large transactions, which may indicate compromised wallets or preparation for significant market moves.
+**Objective:** Find wallets that were inactive for an extended period and then received large transactions, which may indicate compromised wallets or preparation for significant market moves.
 
-**SQL Query**:
+**SQL Query:**
+
 ```sql
 WITH wallet_activity AS (
     SELECT
@@ -167,15 +180,16 @@ WHERE USD_AMOUNT > 10000 -- Threshold for large transaction
 ORDER BY USD_AMOUNT DESC;
 ```
 
-**Explanation**:
+**Explanation:**
 - Purpose: Detects dormant wallets that have recently become active by receiving significant funds.
 - Unique Insight: Such activity may warrant further investigation, as it could signal security breaches or preparation for large-scale transactions.
 
 ### 3.3 Cross-Chain Arbitrage Opportunities Detection
 
-**Objective**: Identify wallets that are potentially engaging in cross-chain arbitrage by moving funds between different blockchains within short timeframes.
+**Objective:** Identify wallets that are potentially engaging in cross-chain arbitrage by moving funds between different blockchains within short timeframes.
 
-**SQL Query**:
+**SQL Query:**
+
 ```sql
 WITH cross_chain_transfers AS (
     SELECT
@@ -199,15 +213,16 @@ FROM cross_chain_transfers
 ORDER BY minutes_between ASC, USD_AMOUNT DESC;
 ```
 
-**Explanation**:
+**Explanation:**
 - Purpose: Finds instances where the same wallet sends funds on one chain and receives on another shortly after.
 - Unique Insight: Rapid movement of funds across chains can indicate arbitrage activities, taking advantage of price differences between markets.
 
 ### 3.4 High-Frequency Trading Wallets Detection
 
-**Objective**: Identify wallets that perform a high number of transactions within short periods, characteristic of algorithmic or high-frequency trading bots.
+**Objective:** Identify wallets that perform a high number of transactions within short periods, characteristic of algorithmic or high-frequency trading bots.
 
-**SQL Query**:
+**SQL Query:**
+
 ```sql
 WITH transaction_counts AS (
     SELECT
@@ -236,15 +251,16 @@ LEFT JOIN WALLET_COUNTERPARTY_SUMMARY wcs ON hfw.WALLET_ADDRESS = wcs.WALLET_ADD
 ORDER BY hfw.tx_count DESC;
 ```
 
-**Explanation**:
+**Explanation:**
 - Purpose: Identifies wallets with unusually high transaction counts within an hour.
 - Unique Insight: High-frequency trading wallets can impact market liquidity and volatility; understanding their activity is valuable for market analysis.
 
 ### 3.5 Analyzing Fee Consumption Patterns
 
-**Objective**: Determine which wallets are incurring the highest transaction fees, possibly indicating inefficiencies or heavy usage.
+**Objective:** Determine which wallets are incurring the highest transaction fees, possibly indicating inefficiencies or heavy usage.
 
-**SQL Query**:
+**SQL Query:**
+
 ```sql
 WITH fee_analysis AS (
     SELECT
@@ -268,15 +284,16 @@ ORDER BY fa.total_fees DESC
 LIMIT 100;
 ```
 
-**Explanation**:
+**Explanation:**
 - Purpose: Identifies wallets that spend the most on transaction fees.
 - Unique Insight: High fees may indicate frequent use of the network during peak times or inefficient transaction practices.
 
 ### 3.6 Token Holding Period Analysis
 
-**Objective**: Calculate the average holding period of tokens by wallets, revealing investment behaviors such as hodling or short-term trading.
+**Objective:** Calculate the average holding period of tokens by wallets, revealing investment behaviors such as hodling or short-term trading.
 
-**SQL Query**:
+**SQL Query:**
+
 ```sql
 WITH received_tokens AS (
     SELECT
@@ -322,15 +339,16 @@ ORDER BY average_holding_days ASC
 LIMIT 100;
 ```
 
-**Explanation**:
+**Explanation:**
 - Purpose: Measures how long wallets hold onto tokens before selling.
 - Unique Insight: Short holding periods may indicate speculative trading, while long periods suggest investment confidence.
 
 ### 3.7 Correlation Between Token Prices and Transaction Volumes
 
-**Objective**: Analyze whether there's a correlation between token price movements and transaction volumes, potentially indicating causation.
+**Objective:** Analyze whether there's a correlation between token price movements and transaction volumes, potentially indicating causation.
 
-**SQL Query**:
+**SQL Query:**
+
 ```sql
 WITH daily_transactions AS (
     SELECT
@@ -368,29 +386,158 @@ GROUP BY TOKEN_SYMBOL
 ORDER BY correlation_volume_price DESC;
 ```
 
-**Explanation**:
+**Explanation:**
 - Purpose: Computes the statistical correlation between transaction metrics and token prices.
 - Unique Insight: High correlation suggests that transaction activity may be influencing prices or vice versa.
 
-### 3.8 Detection of Potential Pump and Dump Schemes
+### 3.8 Detection of Potential Pump and Dump Schemes (continued)
 
-**Objective**: Identify tokens that experience sudden spikes in transaction volume and price, followed by rapid declines, indicative of pump and dump schemes.
+**SQL Query (continued):**
 
-**SQL Query**:
 ```sql
-WITH token_activity AS (
+suspicious_activity AS (
     SELECT
-        TOKEN_SYMBOL,
-        DATE_TRUNC('hour', BLOCK_TIMESTAMP) AS hour_block,
-        COUNT(*) AS tx_count,
-        SUM(USD_AMOUNT) AS total_volume
+        ta.TOKEN_SYMBOL,
+        ta.hour_block,
+        ta.tx_count,
+        ta.total_volume,
+        pc.price_change_percent
+    FROM token_activity ta
+    JOIN price_changes pc ON ta.TOKEN_SYMBOL = pc.TOKEN_SYMBOL AND ta.hour_block = DATE_TRUNC('hour', pc.price_time)
+    WHERE pc.price_change_percent > 20 -- Sudden price increase over 20%
+)
+SELECT
+    TOKEN_SYMBOL,
+    hour_block,
+    tx_count,
+    total_volume,
+    price_change_percent
+FROM suspicious_activity
+ORDER BY price_change_percent DESC;
+```
+
+**Explanation:**
+- Purpose: Detects tokens with sharp increases in price and transaction volume within a short period.
+- Unique Insight: Helps in identifying potential market manipulation activities.
+
+### 3.9 Analysis of Counterparty Risk Exposure
+
+**Objective:** Assess the risk exposure of wallets based on interactions with counterparties flagged as high-risk or blacklisted.
+
+**SQL Query:**
+
+```sql
+WITH risk_exposure AS (
+    SELECT
+        WALLET_ADDRESS,
+        COUNTERPARTY,
+        SUM(TOTAL_USD_AMOUNT) AS total_exposure,
+        MAX(COUNTERPARTY_FLAG) AS counterparty_risk_flag
+    FROM WALLET_COUNTERPARTY_SUMMARY
+    WHERE COUNTERPARTY_FLAG = 1 -- Flag indicating high-risk counterparty
+    GROUP BY WALLET_ADDRESS, COUNTERPARTY
+)
+SELECT
+    re.WALLET_ADDRESS,
+    re.COUNTERPARTY,
+    re.total_exposure,
+    re.counterparty_risk_flag,
+    wcs.WALLET_NAME,
+    wcs.WALLET_CATEGORY
+FROM risk_exposure re
+LEFT JOIN WALLET_COUNTERPARTY_SUMMARY wcs ON re.WALLET_ADDRESS = wcs.WALLET_ADDRESS
+ORDER BY re.total_exposure DESC;
+```
+
+**Explanation:**
+- Purpose: Quantifies the financial exposure wallets have to high-risk counterparties.
+- Unique Insight: Essential for compliance and risk management, helping entities to mitigate potential risks.
+
+### 3.10 Predictive Modeling for Transaction Amounts
+
+**Objective:** Use regression analysis to predict future transaction amounts based on historical data.
+
+**SQL Query:**
+
+```sql
+WITH historical_data AS (
+    SELECT
+        EXTRACT(EPOCH FROM BLOCK_TIMESTAMP)::BIGINT AS timestamp_epoch,
+        USD_AMOUNT
     FROM token_transfers
-    GROUP BY TOKEN_SYMBOL, hour_block
+    WHERE WALLET_ADDRESS = 'your_target_wallet_address'
+    ORDER BY BLOCK_TIMESTAMP
 ),
-price_changes AS (
+regression_model AS (
     SELECT
-        TOKEN_SYMBOL,
-        TIMESTAMP AS price_time,
-        PRICE,
-        LAG(PRICE) OVER (PARTITION BY TOKEN_SYMBOL ORDER BY TIMESTAMP) AS prev_price,
-        (PRICE - LAG(PRICE) OVER (PARTITION BY TOKEN_SYMBOL ORDER BY TIMESTAMP)) / LAG(PRICE) OVER (PARTITION BY TOKEN_SYMBOL ORDER BY TIMESTAMP)
+        regr_slope(USD_AMOUNT, timestamp_epoch) OVER () AS slope,
+        regr_intercept(USD_AMOUNT, timestamp_epoch) OVER () AS intercept
+)
+SELECT
+    hd.timestamp_epoch,
+    hd.USD_AMOUNT,
+    (rm.slope * hd.timestamp_epoch + rm.intercept) AS predicted_amount
+FROM historical_data hd
+CROSS JOIN regression_model rm
+ORDER BY hd.timestamp_epoch;
+```
+
+**Explanation:**
+- Purpose: Applies linear regression to model and predict transaction amounts over time.
+- Unique Insight: Provides forecasts of transaction behaviors, aiding in planning and anomaly detection.
+
+## 4. Implementing and Extending the Queries
+
+When implementing these queries in your environment, consider the following:
+
+1. **Data Availability:** Ensure that any additional data (like token prices, transaction fees, or wallet entity mappings) is available in your database.
+
+2. **Performance Optimization:** For large datasets, consider:
+   - Indexing frequently queried columns
+   - Optimizing your database configurations
+   - Using partitioning for large tables
+   - Implementing materialized views for complex, frequently-run queries
+
+3. **Custom Thresholds:** Adjust thresholds (e.g., transaction counts, USD amounts) in the queries to suit your specific analytical needs and the characteristics of your data.
+
+4. **Visualization:** Use the results of these queries to create visual dashboards, charts, or graphs for better interpretation and presentation. Tools like Tableau, Power BI, or custom web dashboards can be helpful.
+
+5. **Scheduling:** Set up regular jobs to run these analyses and store results, allowing for trend analysis over time.
+
+6. **Error Handling:** Implement proper error handling and logging to manage potential issues with data quality or query execution.
+
+7. **Security:** Ensure that access to these queries and their results is properly secured, especially when dealing with sensitive financial data.
+
+## 5. Potential Applications
+
+The insights gained from these analyses can be applied in various ways:
+
+1. **Compliance and Security:**
+   - Enhance AML/KYC processes by detecting suspicious activities and high-risk interactions.
+   - Identify potential money laundering schemes through circular trading detection.
+   - Monitor sudden activations of dormant wallets for potential security breaches.
+
+2. **Market Analysis:**
+   - Provide clients with unique market insights, helping them make informed investment decisions.
+   - Analyze cross-chain arbitrage opportunities to understand market inefficiencies.
+   - Study the impact of high-frequency trading on market dynamics.
+
+3. **Risk Management:**
+   - Assist financial institutions in assessing and mitigating exposure to potential risks.
+   - Quantify counterparty risk exposure for better risk assessment.
+   - Predict potential market manipulations through pump and dump scheme detection.
+
+4. **Product Development:**
+   - Develop new features or services based on the insights gained from these analyses.
+   - Create tools for traders to optimize their strategies based on fee consumption patterns.
+   - Build predictive models for transaction amounts to aid in financial planning.
+
+5. **Research:**
+   - Contribute to academic research on blockchain economics and behavior.
+   - Study long-term trends in token holding periods and their impact on price stability.
+
+6. **Regulatory Reporting:**
+   - Provide detailed reports on market activities for regulatory compliance.
+   - Assist in investigations of potential market manipulations or fraudulent activities.
+
+By leveraging these advanced SQL queries and analyses, organizations can gain deeper insights into blockchain activities, enhance their decision-making processes, and develop more sophisticated products and services in the blockchain space.
