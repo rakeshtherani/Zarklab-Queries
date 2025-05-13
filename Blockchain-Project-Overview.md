@@ -5,7 +5,7 @@ I bring hands-on experience building data infrastructures and pipelines for bloc
 Below is a brief overview of my experience and skills:
 
 ## 1. Comprehensive Blockchain Data Experience
-* **Multi-Chain Coverage**: Worked extensively with data from various blockchains, including Ethereum, BNB Smart Chain (BSC), Polygon, Avalanche, Arbitrum, Optimism, Tron, and Base.
+* **Multi-Chain Coverage**: Worked extensively with data from various blockchains, including Ethereum,Solana,SUI, BNB Smart Chain (BSC), Polygon, Avalanche, Arbitrum, Optimism, Tron, and Base.
 * **Raw Data Handling**: Built pipelines that ingest raw transactions, logs, traces, and blocks, ensuring data integrity and high availability for downstream applications.
 
 ## 2. Enriched & Derived Data Pipelines
